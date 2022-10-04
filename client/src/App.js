@@ -1,23 +1,47 @@
 import './App.css';
-
-// function App() {
-// 	return (
-// 		<div className="App">
-// 			<header className="App-header">
-// 				<img src={logo} className="App-logo" alt="logo" />
-// 				<p>
-// 					Edit <code>src/App.js</code> and save to reload ;)
-// 				</p>
-// 				<a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-// 					Learn React
-// 				</a>
-// 			</header>
-// 		</div>
-// 	);
-// }
+import { useState, useEffect } from 'react';
+import Dilemma from './components/dilemma/dilemma.component';
 
 const App = () => {
-	return <div>Hello from the App</div>;
+	const [dilemmas, setDilemmas] = useState([
+		{
+			question: 'Letmælk eller sødmælk?',
+			answers: [
+				{
+					text: 'Letmælk',
+					count: 2,
+				},
+				{
+					text: 'Sødmælk',
+					count: 0,
+				},
+			],
+		},
+		{
+			question: 'Kakaomælk eller juice?',
+			answers: [
+				{
+					text: 'Kakaomælk',
+					count: 9,
+				},
+				{
+					text: 'Juice',
+					count: 4,
+				},
+			],
+		},
+	]);
+	useEffect(() => {
+		fetch('http://localhost:4000/database')
+			.then((res) => res.json())
+			.then((res) => console.log(res));
+	}, []);
+	return (
+		<div>
+			Hello from the App
+			<Dilemma dilemmas={dilemmas} />
+		</div>
+	);
 };
 
 export default App;
