@@ -1,7 +1,9 @@
+const { json } = require('body-parser');
 const express = require('express');
 const db = require('./db');
 
 const app = express();
+app.use(express.json());
 
 app.get('/', (req, res) => {
 	res.status(200).json({
@@ -21,6 +23,33 @@ app.get('/database', (req, res) => {
 			data: {
 				data,
 			},
+		});
+	});
+});
+
+app.post('/dilemma', (req, res) => {
+	const { question, answer1, answer2 } = req.body;
+	db.query(`INSERT INTO dilemmas(question, answer1, answer2) VALUES('${question}', '${answer1}', '${answer2}')`, (err, data) => {
+		if (err) console.log(err);
+		res.status(200).json({
+			status: 200,
+			message: 'The dilemma was added to the db',
+		});
+	});
+});
+
+app.post('/answer', (req, res) => {
+	const { answer, questionId } = req.body;
+	const answerString = `${answer}count`;
+	console.log(answer, questionId);
+	db.query(`SELECT ${answerString} as answerCount from dilemmas WHERE id='${questionId}'`, (err, data) => {
+		if (err) console.log(err);
+		const newCount = ++data[0].answerCount;
+		console.log({ newCount });
+		db.query(`UPDATE dilemmas SET answer1count=${newCount} WHERE id=${questionId}`, (err, data) => {
+			res.status(200).json({
+				status: 'succes',
+			});
 		});
 	});
 });
