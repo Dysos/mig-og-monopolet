@@ -42,14 +42,11 @@ app.post('/answer', (req, res) => {
 	const { answer, questionId } = req.body;
 	const answerString = `${answer}count`;
 	console.log(answer, questionId);
-	db.query(`SELECT ${answerString} as answerCount from dilemmas WHERE id='${questionId}'`, (err, data) => {
+	db.query(`UPDATE dilemmas set ${answerString} = ${answerString}+1 WHERE id=${questionId}`, (err, data) => {
 		if (err) console.log(err);
-		const newCount = ++data[0].answerCount;
-		console.log({ newCount });
-		db.query(`UPDATE dilemmas SET answer1count=${newCount} WHERE id=${questionId}`, (err, data) => {
-			res.status(200).json({
-				status: 'succes',
-			});
+
+		res.status(200).json({
+			status: 'succes',
 		});
 	});
 });
