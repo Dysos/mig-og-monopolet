@@ -1,0 +1,18 @@
+.add-dilemma-button {
+	width: 40px;
+	height: 40px;
+	color: black;
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	padding: 1.6rem;
+	border-radius: 2.6rem;
+	box-sizing: content-box;
+	background-color: rgba(255, 255, 255, 0.6);
+	transition: all 0.2s;
+	cursor: pointer;
+}
+
+.add-dilemma-button:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+}

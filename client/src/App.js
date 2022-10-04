@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import Dilemma from './components/dilemma/dilemma.component';
+import AddDilemma from './components/add-dilemma/add-dilemma.component';
 
 const App = () => {
 	const [dilemmas, setDilemmas] = useState([
@@ -31,15 +32,88 @@ const App = () => {
 			],
 		},
 	]);
+
+	const getData = () => {
+		fetch('http://localhost:4000/database')
+			.then((res) => res.json())
+			.then((res) =>
+				setDilemmas(
+					res.data.data.map((singleQuestion) => {
+						return {
+							question: singleQuestion.question,
+							id: singleQuestion.id,
+							answers: [
+								{
+									text: singleQuestion.answer1,
+									count: singleQuestion.answer1count,
+								},
+								{
+									text: singleQuestion.answer2,
+									count: singleQuestion.answer2count,
+								},
+								{
+									text: singleQuestion.answer3,
+									count: singleQuestion.answer3count,
+								},
+								{
+									text: singleQuestion.answer4,
+									count: singleQuestion.answer4count,
+								},
+							],
+						};
+					})
+				)
+			);
+	};
+	const addAnswer = (answer, questionId) => {
+		console.log('Addanser ID: ', questionId);
+		fetch('http://localhost:4000/answer', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				answer: answer,
+				questionId: questionId,
+			}),
+		}).then((res) => getData());
+	};
 	useEffect(() => {
 		fetch('http://localhost:4000/database')
 			.then((res) => res.json())
-			.then((res) => console.log(res));
+			.then((res) =>
+				setDilemmas(
+					res.data.data.map((singleQuestion) => {
+						return {
+							question: singleQuestion.question,
+							id: singleQuestion.id,
+							answers: [
+								{
+									text: singleQuestion.answer1,
+									count: singleQuestion.answer1count,
+								},
+								{
+									text: singleQuestion.answer2,
+									count: singleQuestion.answer2count,
+								},
+								{
+									text: singleQuestion.answer3,
+									count: singleQuestion.answer3count,
+								},
+								{
+									text: singleQuestion.answer4,
+									count: singleQuestion.answer4count,
+								},
+							],
+						};
+					})
+				)
+			);
 	}, []);
 	return (
-		<div>
-			Hello from the App
-			<Dilemma dilemmas={dilemmas} />
+		<div className="container">
+			<Dilemma dilemmas={dilemmas} addAnswer={addAnswer} />
+			<AddDilemma />
 		</div>
 	);
 };

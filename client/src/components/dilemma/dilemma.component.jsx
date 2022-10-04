@@ -1,18 +1,30 @@
-const Dilemma = ({ dilemmas }) => {
+import './dilemma.style.css';
+
+const Dilemma = ({ dilemmas, addAnswer }) => {
 	const questions = dilemmas.map((dilemma) => {
-		const answers = dilemma.answers.map((answer) => (
-			<div>
-				{answer.text}: {answer.count}
-			</div>
-		));
+		const answers = dilemma.answers.map((answer, index) => {
+			console.log('Answer is ', answer);
+			if (answer.text.length > 0) {
+				return (
+					<div
+						className="dilemma__answer"
+						onClick={() => {
+							addAnswer(`answer${index + 1}`, dilemma.id);
+						}}
+					>
+						{answer.text}: {answer.count}
+					</div>
+				);
+			}
+		});
 		return (
-			<div>
-				<h2>{dilemma.question}</h2>
-				{answers}
+			<div className="dilemma">
+				<h2 className="dilemma__text">{dilemma.question}</h2>
+				<div className="answers-container">{answers}</div>
 			</div>
 		);
 	});
-	return <div>{questions}</div>;
+	return <div className="dilemma-container">{questions}</div>;
 };
 
 export default Dilemma;
