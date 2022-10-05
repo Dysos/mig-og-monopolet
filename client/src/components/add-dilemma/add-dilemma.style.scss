@@ -11,8 +11,7 @@
 	background-color: rgba(255, 255, 255, 0.6);
 	transition: all 0.2s;
 	cursor: pointer;
-}
-
-.add-dilemma-button:hover {
-	background-color: rgba(255, 255, 255, 0.3);
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.3);
+	}
 }

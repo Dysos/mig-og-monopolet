@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react';
 import './modal.style.scss';
 
-const Modal = ({ addNewDilemma, changeModal }) => {
-	const [showModal, setShowModal] = useState(true);
+const Modal = ({ addNewDilemma }) => {
 	const sendDilemma = () => {
 		const question = document.querySelector('.modal__text-input').value;
 		let answers = [];
 		answers.push(document.querySelectorAll('.modal__answer-input')[0].value);
 		answers.push(document.querySelectorAll('.modal__answer-input')[1].value);
+
 		addNewDilemma(question, answers);
-		changeModal();
 	};
 
 	return (

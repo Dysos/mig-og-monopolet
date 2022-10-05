@@ -4,6 +4,21 @@
 	margin: 1.6rem;
 	border-radius: 1rem;
 	overflow: hidden;
+	&__text {
+		font-size: 3rem;
+		margin: 1.6rem;
+	}
+	&__answer {
+		font-size: 1.8rem;
+		text-align: center;
+		background-color: rgba(255, 255, 255, 0.2);
+		padding: 1rem 0;
+		cursor: pointer;
+		transition: all 0.15s;
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.4);
+		}
+	}
 }
 
 .dilemma-container {
@@ -11,23 +26,6 @@
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
-}
-
-.dilemma__text {
-	font-size: 3rem;
-	margin: 1.6rem;
-}
-
-.dilemma__answer {
-	font-size: 1.8rem;
-	text-align: center;
-	background-color: rgba(255, 255, 255, 0.2);
-	padding: 1rem 0;
-	cursor: pointer;
-	transition: all 0.15s;
-}
-.dilemma__answer:hover {
-	background-color: rgba(255, 255, 255, 0.4);
 }
 
 .answers-container {

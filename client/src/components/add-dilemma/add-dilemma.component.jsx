@@ -6,7 +6,6 @@ const AddDilemma = ({ changeModal }) => {
 			xmlns="http://www.w3.org/2000/svg"
 			onClick={() => {
 				changeModal();
-				console.log('Clicking');
 			}}
 			className="add-dilemma-button"
 			viewBox="0 0 20 20"

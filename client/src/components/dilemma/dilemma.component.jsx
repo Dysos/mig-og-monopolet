@@ -3,7 +3,6 @@ import './dilemma.style.scss';
 const Dilemma = ({ dilemmas, addAnswer }) => {
 	const questions = dilemmas.map((dilemma) => {
 		const answers = dilemma.answers.map((answer, index) => {
-			console.log('Answer is ', answer);
 			if (answer.text.length > 0) {
 				return (
 					<div
