@@ -1,4 +1,4 @@
-import './dilemma.style.css';
+import './dilemma.style.scss';
 
 const Dilemma = ({ dilemmas, addAnswer }) => {
 	const questions = dilemmas.map((dilemma) => {

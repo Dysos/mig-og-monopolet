@@ -1,4 +1,4 @@
-import './add-dilemma.style.css';
+import './add-dilemma.style.scss';
 
 const AddDilemma = () => {
 	return (

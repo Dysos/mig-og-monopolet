@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { useState, useEffect } from 'react';
 import Dilemma from './components/dilemma/dilemma.component';
 import AddDilemma from './components/add-dilemma/add-dilemma.component';
