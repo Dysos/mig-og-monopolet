@@ -2,21 +2,12 @@ const { json } = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
-
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-	res.status(200).json({
-		status: 'succes',
-		data: {
-			message: 'Succesful response',
-		},
-	});
-});
-
-app.get('/database', (req, res) => {
+app.get('/api/v1/dilemmas', (req, res) => {
 	db.query('SELECT * from dilemmas ORDER BY id DESC', (err, data) => {
 		if (err) console.log(err);
 		console.log(data);
@@ -29,18 +20,18 @@ app.get('/database', (req, res) => {
 	});
 });
 
-app.post('/dilemma', (req, res) => {
+app.post('/api/v1/dilemmas', (req, res) => {
 	const { question, answer1, answer2 } = req.body;
 	db.query(`INSERT INTO dilemmas(question, answer1, answer2) VALUES('${question}', '${answer1}', '${answer2}')`, (err, data) => {
 		if (err) console.log(err);
 		res.status(200).json({
-			status: 200,
+			status: 'succes',
 			message: 'The dilemma was added to the db',
 		});
 	});
 });
 
-app.post('/answer', (req, res) => {
+app.post('/api/v1/answers', (req, res) => {
 	const { answer, questionId } = req.body;
 	const answerString = `${answer}count`;
 	console.log(answer, questionId);
@@ -49,6 +40,7 @@ app.post('/answer', (req, res) => {
 
 		res.status(200).json({
 			status: 'succes',
+			message: 'The answer was added to the right dilemma',
 		});
 	});
 });
