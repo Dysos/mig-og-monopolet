@@ -2,8 +2,10 @@ import './App.scss';
 import { useState, useEffect } from 'react';
 import Dilemma from './components/dilemma/dilemma.component';
 import AddDilemma from './components/add-dilemma/add-dilemma.component';
+import Modal from './components/modal/modal.component';
 
 const App = () => {
+	const [showingModal, setShowingModal] = useState(false);
 	const [dilemmas, setDilemmas] = useState([
 		{
 			question: 'Letmælk eller sødmælk?',
@@ -32,6 +34,22 @@ const App = () => {
 			],
 		},
 	]);
+
+	const addNewDilemma = (question, answers) => {
+		fetch('http://localhost:4000/dilemma', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				question: question,
+				answer1: answers[0],
+				answer2: answers[1],
+			}),
+		}).then((res) => {
+			getData();
+		});
+	};
 
 	const getData = () => {
 		fetch('http://localhost:4000/database')
@@ -78,6 +96,12 @@ const App = () => {
 			}),
 		}).then((res) => getData());
 	};
+
+	const changeModal = () => {
+		setShowingModal(!showingModal);
+		console.log('setting showing modal ', showingModal);
+	};
+
 	useEffect(() => {
 		fetch('http://localhost:4000/database')
 			.then((res) => res.json())
@@ -113,7 +137,8 @@ const App = () => {
 	return (
 		<div className="container">
 			<Dilemma dilemmas={dilemmas} addAnswer={addAnswer} />
-			<AddDilemma />
+			<AddDilemma changeModal={changeModal} />
+			{showingModal ? <Modal addNewDilemma={addNewDilemma} changeModal={changeModal} /> : <div></div>}
 		</div>
 	);
 };

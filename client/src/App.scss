@@ -14,24 +14,16 @@
 
 html {
 	font-size: 62.5%;
-}
 
-@media (max-width: 1200px) {
-	html {
+	@media (max-width: 1200px) {
 		font-size: 62.5%;
 	}
-}
-@media (max-width: 900px) {
-	html {
+	@media (max-width: 900px) {
 	}
-}
-@media (max-width: 600px) {
-	html {
+	@media (max-width: 600px) {
 		font-size: 50%;
 	}
-}
-@media (max-width: 400px) {
-	html {
+	@media (max-width: 400px) {
 		font-size: 35%;
 	}
 }
