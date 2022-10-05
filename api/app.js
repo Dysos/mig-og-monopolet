@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/database', (req, res) => {
-	db.query('SELECT * from dilemmas', (err, data) => {
+	db.query('SELECT * from dilemmas ORDER BY id DESC', (err, data) => {
 		if (err) console.log(err);
 		console.log(data);
 		res.status(200).json({
