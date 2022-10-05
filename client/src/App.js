@@ -9,7 +9,7 @@ const App = () => {
 	const [dilemmas, setDilemmas] = useState([]);
 
 	const addNewDilemma = (question, answers) => {
-		fetch('http://localhost:4000/dilemma', {
+		fetch('http://localhost:4000/api/v1/dilemmas', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ const App = () => {
 	};
 
 	const getData = () => {
-		fetch('http://localhost:4000/database')
+		fetch('http://localhost:4000/api/v1/dilemmas')
 			.then((res) => res.json())
 			.then((res) =>
 				setDilemmas(
@@ -58,7 +58,7 @@ const App = () => {
 			);
 	};
 	const addAnswer = (answer, questionId) => {
-		fetch('http://localhost:4000/answer', {
+		fetch('http://localhost:4000/api/v1/answers', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
