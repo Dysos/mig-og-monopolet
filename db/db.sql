@@ -1,3 +1,7 @@
+CREATE DATABASE migOgMonopolet;
+
+USE migOgMonopolet;
+
 CREATE TABLE dilemmas (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     question VARCHAR(5000),
@@ -11,8 +15,5 @@ CREATE TABLE dilemmas (
     answer4count INT DEFAULT 0
 );
 
-
-
-INSERT INTO dilemmas(question, answer1, answer2) VALUES ('Letmælk eller sødmælk?', 'Letmælk', 'Sødmælk');
 
 
