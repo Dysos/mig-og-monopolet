@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 import Dilemma from './components/dilemma/dilemma.component';
 import AddDilemma from './components/add-dilemma/add-dilemma.component';
 import Modal from './components/modal/modal.component';
+import { parseDilemmaData } from './helper-functions/helper-functions';
 import './App.scss';
 
 const App = () => {
 	const [showingModal, setShowingModal] = useState(false);
 	const [dilemmas, setDilemmas] = useState([]);
 
-	const addNewDilemma = (question, answers, dateString) => {
-		fetch('http://localhost:4000/api/v1/dilemmas', {
+	const addNewDilemma = async (question, answers, dateString) => {
+		await fetch('http://localhost:4000/api/v1/dilemmas', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -20,47 +21,19 @@ const App = () => {
 				answer2: answers[1],
 				dateString: dateString,
 			}),
-		}).then(() => {
-			getData();
-			changeModal();
 		});
+		getData();
+		changeModal();
 	};
 
-	const getData = () => {
-		fetch('http://localhost:4000/api/v1/dilemmas')
-			.then((res) => res.json())
-			.then((res) =>
-				setDilemmas(
-					res.data.data.map((singleQuestion) => {
-						return {
-							question: singleQuestion.question,
-							id: singleQuestion.id,
-							answers: [
-								{
-									text: singleQuestion.answer1,
-									count: singleQuestion.answer1count,
-								},
-								{
-									text: singleQuestion.answer2,
-									count: singleQuestion.answer2count,
-								},
-								{
-									text: singleQuestion.answer3,
-									count: singleQuestion.answer3count,
-								},
-								{
-									text: singleQuestion.answer4,
-									count: singleQuestion.answer4count,
-								},
-							],
-							createdAt: singleQuestion.createdAt,
-						};
-					})
-				)
-			);
+	const getData = async () => {
+		const data = await fetch('http://localhost:4000/api/v1/dilemmas');
+		const dilemmas = await data.json();
+		const objDilemmas = parseDilemmaData(dilemmas.data.data);
+		setDilemmas(objDilemmas);
 	};
-	const addAnswer = (answer, questionId) => {
-		fetch('http://localhost:4000/api/v1/answers', {
+	const addAnswer = async (answer, questionId) => {
+		await fetch('http://localhost:4000/api/v1/answers', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -69,10 +42,9 @@ const App = () => {
 				answer: answer,
 				questionId: questionId,
 			}),
-		}).then(() => {
-			window.localStorage.setItem(`${questionId}`, 'true');
-			getData();
 		});
+		window.localStorage.setItem(`${questionId}`, 'true');
+		getData();
 	};
 
 	const changeModal = () => {
