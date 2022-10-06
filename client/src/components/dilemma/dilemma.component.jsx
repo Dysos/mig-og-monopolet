@@ -1,6 +1,6 @@
 import './dilemma.style.scss';
 
-const Dilemma = ({ dilemmas, addAnswer }) => {
+const Dilemma = ({ dilemmas, addDilemmaAnswer }) => {
 	const questions = dilemmas.map((dilemma) => {
 		const totalAnswers = dilemma.answers.map((answer) => answer.count).reduce((cur, acc) => cur + acc, 0);
 		const answers = dilemma.answers.map((answer, index) => {
@@ -17,7 +17,7 @@ const Dilemma = ({ dilemmas, addAnswer }) => {
 						className="dilemma__answer"
 						key={index}
 						onClick={() => {
-							addAnswer(`answer${index + 1}`, dilemma.id);
+							addDilemmaAnswer(`answer${index + 1}`, dilemma.id);
 						}}
 					>
 						{answer.text}

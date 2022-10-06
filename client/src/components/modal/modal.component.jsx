@@ -1,6 +1,6 @@
 import './modal.style.scss';
 
-const Modal = ({ addNewDilemma, changeModal }) => {
+const Modal = ({ addDilemma, changeModal }) => {
 	const sendDilemma = () => {
 		const question = document.querySelector('.modal__text-input').value;
 		let answers = [];
@@ -14,7 +14,7 @@ const Modal = ({ addNewDilemma, changeModal }) => {
 		// const dateString = `${now.slice(0, 10)} ${now.slice(11, 19)}`;
 		const dateString = `${now.getFullYear()}-${('0' + (now.getMonth() + 1)).slice(-2)}-${('0' + now.getDate()).slice(-2)} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
-		addNewDilemma(question, answers, dateString);
+		addDilemma(question, answers, dateString);
 	};
 
 	return (

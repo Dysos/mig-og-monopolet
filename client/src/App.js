@@ -9,7 +9,7 @@ const App = () => {
 	const [showingModal, setShowingModal] = useState(false);
 	const [dilemmas, setDilemmas] = useState([]);
 
-	const addNewDilemma = async (question, answers, dateString) => {
+	const addDilemma = async (question, answers, dateString) => {
 		await fetch('http://localhost:4000/api/v1/dilemmas', {
 			method: 'POST',
 			headers: {
@@ -22,17 +22,17 @@ const App = () => {
 				dateString: dateString,
 			}),
 		});
-		getData();
+		getDilemmas();
 		changeModal();
 	};
 
-	const getData = async () => {
+	const getDilemmas = async () => {
 		const data = await fetch('http://localhost:4000/api/v1/dilemmas');
 		const dilemmas = await data.json();
 		const objDilemmas = parseDilemmaData(dilemmas.data.data);
 		setDilemmas(objDilemmas);
 	};
-	const addAnswer = async (answer, questionId) => {
+	const addDilemmaAnswer = async (answer, questionId) => {
 		await fetch('http://localhost:4000/api/v1/answers', {
 			method: 'POST',
 			headers: {
@@ -44,7 +44,7 @@ const App = () => {
 			}),
 		});
 		window.localStorage.setItem(`${questionId}`, 'true');
-		getData();
+		getDilemmas();
 	};
 
 	const changeModal = () => {
@@ -52,13 +52,13 @@ const App = () => {
 	};
 
 	useEffect(() => {
-		getData();
+		getDilemmas();
 	}, []);
 
 	return (
 		<div className="container">
-			<Dilemma dilemmas={dilemmas} addAnswer={addAnswer} />
-			{showingModal ? <Modal addNewDilemma={addNewDilemma} changeModal={changeModal} /> : <AddDilemma changeModal={changeModal} />}
+			<Dilemma dilemmas={dilemmas} addDilemmaAnswer={addDilemmaAnswer} />
+			{showingModal ? <Modal addDilemma={addDilemma} changeModal={changeModal} /> : <AddDilemma changeModal={changeModal} />}
 		</div>
 	);
 };
