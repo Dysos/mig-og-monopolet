@@ -7,6 +7,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const validateDilemma = (req, res, next) => {
+	const { question, answer1, answer2, dateString } = req.body;
+	if (question === undefined || answer1 === undefined || answer2 === undefined || dateString === undefined) {
+		res.status(200).json({
+			status: 'failed',
+			message: 'Missing one or more parameters',
+		});
+	}
+	if (question.length === 0 || answer1.length === 0 || answer2.length === 0 || dateString.length === 0) {
+		res.status(200).json({
+			status: 'failed',
+			message: 'Missing one or more parameters',
+		});
+	}
+	next();
+};
+
+app.post('/api/v1/dilemmas', validateDilemma);
+
 app.get('/api/v1/dilemmas', (req, res) => {
 	db.query('SELECT * from dilemmas ORDER BY id DESC', (err, data) => {
 		if (err) console.log(err);
