@@ -53,7 +53,6 @@ app.post('/api/v1/dilemmas', (req, res) => {
 app.post('/api/v1/answers', (req, res) => {
 	const { answer, questionId } = req.body;
 	const answerString = `${answer}count`;
-	console.log(answer, questionId);
 	db.query(`UPDATE dilemmas set ${answerString} = ${answerString}+1 WHERE id=${questionId}`, (err, data) => {
 		if (err) console.log(err);
 
