@@ -70,8 +70,7 @@ const App = () => {
 				questionId: questionId,
 			}),
 		}).then(() => {
-			console.log('has it been clickd: ', window.localStorage.getItem(`${questionId}`));
-			window.localStorage.setItem(`${questionId}`, true);
+			window.localStorage.setItem(`${questionId}`, 'true');
 			getData();
 		});
 	};

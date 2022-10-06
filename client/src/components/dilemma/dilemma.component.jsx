@@ -9,12 +9,13 @@ const Dilemma = ({ dilemmas, addAnswer }) => {
 				answerWidth = answerWidth < 10 ? 10 : answerWidth;
 				const answerClass = answerWidth >= 50 ? 'dilemma__answer--most-popular' : 'dilemma__answer--neutral';
 				return window.localStorage.getItem(`${dilemma.id}`) === 'true' ? (
-					<div className={`dilemma__answer dilemma__answer--true ${answerClass}`} style={{ width: `${answerWidth}%` }}>
+					<div className={`dilemma__answer dilemma__answer--true ${answerClass}`} style={{ width: `${answerWidth}%` }} key={index}>
 						{answer.text} ({answer.count})
 					</div>
 				) : (
 					<div
 						className="dilemma__answer"
+						key={index}
 						onClick={() => {
 							addAnswer(`answer${index + 1}`, dilemma.id);
 						}}
@@ -31,9 +32,8 @@ const Dilemma = ({ dilemmas, addAnswer }) => {
 		const hours = Math.floor(minutes / 60);
 		const days = Math.floor(hours / 24);
 		const timeString = days >= 1 ? `${days}d` : hours >= 1 ? `${hours}t` : minutes >= 1 ? `${minutes}m` : `${seconds}s`;
-		console.log(new Date().getTime() - time.getTime() / 1000);
 		return (
-			<div className="dilemma">
+			<div className="dilemma" key={dilemma.id}>
 				<p className="dilemma__time">{timeString} </p>
 				<h2 className="dilemma__text">{dilemma.question}</h2>
 				<div className="answers-container">{answers}</div>

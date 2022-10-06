@@ -8,7 +8,7 @@ app.use(express.json());
 
 const router = express.Router();
 router.route('/dilemmas').get(getAllDilemmas).post(validateDilemma, createDilemma);
-router.route('/answer').post(newAnswer);
+router.route('/answers').post(newAnswer);
 app.use('/api/v1', router);
 
 module.exports = app;

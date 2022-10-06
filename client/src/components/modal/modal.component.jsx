@@ -1,4 +1,3 @@
-import { addListener } from 'superagent';
 import './modal.style.scss';
 
 const Modal = ({ addNewDilemma, changeModal }) => {
@@ -14,7 +13,6 @@ const Modal = ({ addNewDilemma, changeModal }) => {
 		const now = new Date();
 		// const dateString = `${now.slice(0, 10)} ${now.slice(11, 19)}`;
 		const dateString = `${now.getFullYear()}-${('0' + (now.getMonth() + 1)).slice(-2)}-${('0' + now.getDate()).slice(-2)} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
-		console.log(dateString);
 
 		addNewDilemma(question, answers, dateString);
 	};
