@@ -21,8 +21,8 @@ app.get('/api/v1/dilemmas', (req, res) => {
 });
 
 app.post('/api/v1/dilemmas', (req, res) => {
-	const { question, answer1, answer2 } = req.body;
-	db.query(`INSERT INTO dilemmas(question, answer1, answer2) VALUES('${question}', '${answer1}', '${answer2}')`, (err, data) => {
+	const { question, answer1, answer2, dateString } = req.body;
+	db.query(`INSERT INTO dilemmas(question, answer1, answer2, createdAt) VALUES('${question}', '${answer1}', '${answer2}', '${dateString}')`, (err, data) => {
 		if (err) console.log(err);
 		res.status(200).json({
 			status: 'succes',

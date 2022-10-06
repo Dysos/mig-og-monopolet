@@ -8,7 +8,7 @@ const App = () => {
 	const [showingModal, setShowingModal] = useState(false);
 	const [dilemmas, setDilemmas] = useState([]);
 
-	const addNewDilemma = (question, answers) => {
+	const addNewDilemma = (question, answers, dateString) => {
 		fetch('http://localhost:4000/api/v1/dilemmas', {
 			method: 'POST',
 			headers: {
@@ -18,6 +18,7 @@ const App = () => {
 				question: question,
 				answer1: answers[0],
 				answer2: answers[1],
+				dateString: dateString,
 			}),
 		}).then(() => {
 			getData();
@@ -52,6 +53,7 @@ const App = () => {
 									count: singleQuestion.answer4count,
 								},
 							],
+							createdAt: singleQuestion.createdAt,
 						};
 					})
 				)
@@ -67,7 +69,11 @@ const App = () => {
 				answer: answer,
 				questionId: questionId,
 			}),
-		}).then(() => getData());
+		}).then(() => {
+			console.log('has it been clickd: ', window.localStorage.getItem(`${questionId}`));
+			window.localStorage.setItem(`${questionId}`, true);
+			getData();
+		});
 	};
 
 	const changeModal = () => {
@@ -81,8 +87,7 @@ const App = () => {
 	return (
 		<div className="container">
 			<Dilemma dilemmas={dilemmas} addAnswer={addAnswer} />
-			<AddDilemma changeModal={changeModal} />
-			{showingModal ? <Modal addNewDilemma={addNewDilemma} changeModal={changeModal} /> : <div></div>}
+			{showingModal ? <Modal addNewDilemma={addNewDilemma} changeModal={changeModal} /> : <AddDilemma changeModal={changeModal} />}
 		</div>
 	);
 };
