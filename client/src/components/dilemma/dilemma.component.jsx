@@ -1,4 +1,5 @@
 import './dilemma.style.scss';
+import { getTimeDifference } from '../../helper-functions/helper-functions';
 
 const Dilemma = ({ dilemmas, addDilemmaAnswer }) => {
 	const questions = dilemmas.map((dilemma) => {
@@ -25,13 +26,8 @@ const Dilemma = ({ dilemmas, addDilemmaAnswer }) => {
 				);
 			}
 		});
-		const time = new Date(dilemma.createdAt);
-		const timeDiff = new Date().getTime() - time.getTime();
-		const seconds = Math.floor(timeDiff / 1000);
-		const minutes = Math.floor(seconds / 60);
-		const hours = Math.floor(minutes / 60);
-		const days = Math.floor(hours / 24);
-		const timeString = days >= 1 ? `${days}d` : hours >= 1 ? `${hours}t` : minutes >= 1 ? `${minutes}m` : `${seconds}s`;
+
+		const timeString = getTimeDifference(dilemma.createdAt);
 		return (
 			<div className="dilemma" key={dilemma.id}>
 				<p className="dilemma__time">{timeString} </p>
