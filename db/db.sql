@@ -12,7 +12,8 @@ CREATE TABLE dilemmas (
     answer1count INT DEFAULT 0,
     answer2count INT DEFAULT 0,
     answer3count INT DEFAULT 0,
-    answer4count INT DEFAULT 0
+    answer4count INT DEFAULT 0,
+    createdAt DATETIME
 );
 
 
